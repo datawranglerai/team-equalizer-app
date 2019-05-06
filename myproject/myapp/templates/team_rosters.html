@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load myapp_extras %}
+
+{% block content %}
+
+<h1>Your balanced teams:</h1>
+
+<table>
+    <tr>
+        <th>Team A</th>
+        <th>Team B</th>
+    </tr>
+    {% for a, b in team_a|zip:team_b %}
+    <tr>
+        <td>{{ a }}</td>
+        <td>{{ b }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

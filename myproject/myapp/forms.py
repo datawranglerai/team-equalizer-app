@@ -25,29 +25,46 @@ class VotingForm(forms.ModelForm):
                   'skill_c',
                   'skill_d',
                   'skill_e',
-                  'created_date',
-                  'published_date',)
+                  'created_date',)
 
     def __init__(self, *args, **kwargs):
         """
-        Creates a dynamic drop down form field of registered users
+        Overrrides drop-down field.
+        Creates a dynamic drop down form field of registered users. Excludes logged in user and any players that the
+        logged in user has already voted on.
+        :param uid: ID of the currently logged in user.
         :param args:
         :param kwargs:
         """
 
+        uid = kwargs.pop('uid', None)
+
         super(VotingForm, self).__init__(*args, **kwargs)
 
-        users = User.objects.values()
-        first_names = users.values_list('first_name', flat=True)
-        last_names = users.values_list('last_name', flat=True)
+        instance = getattr(self, 'instance', None)
 
-        human_names = []
-        for i in range(len(first_names)):
-            human_names.append(f"{first_names[i]} {last_names[i]}")
+        if instance and instance.player:
+            self.fields['player'].disabled = True
+            self.fields['created_date'].disabled = True
+        else:
+            # Get list of names of all users, excluding currently logged in user
+            users = User.objects.values().exclude(id=uid)
+            first_names = users.values_list('first_name', flat=True)
+            last_names = users.values_list('last_name', flat=True)
 
-        USER_CHOICES = list(zip(human_names, human_names))
+            human_names = []
+            for i in range(len(first_names)):
+                human_names.append(f"{first_names[i]} {last_names[i]}")
 
-        self.fields['player'] = forms.ChoiceField(choices=USER_CHOICES)
+            # Players the user has already voted on
+            voted_players = list(
+                Votes.objects.filter(user_id=uid).values_list('player', flat=True))  # returns an iterable
+
+            # Return players that don't match current user and haven't been voted on
+            valid_players = [name for name in human_names if name not in voted_players]
+            form_user_choices = list(zip(valid_players, valid_players))
+
+            self.fields['player'] = forms.ChoiceField(choices=form_user_choices)
 
 
 class RosterForm(forms.ModelForm):

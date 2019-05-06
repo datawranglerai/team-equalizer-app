@@ -35,7 +35,7 @@ def vote_new(request):
             post.save()
             return redirect('vote_edit', pk=post.pk)
     else:
-        form = VotingForm()
+        form = VotingForm(uid=request.user.id)  # passes User ID to form class to exclude current user from drop-down
     return render(request, 'votingForm.html', {'form': form})
 
 
@@ -81,3 +81,11 @@ def roster(request):
         form = RosterForm()
     return render(request, 'roster_selection.html', {'form': form})
 
+
+def team_rosters(request):
+    teams = {
+        "team_a": ['Clint Barton', 'Tony Stark', 'Bruce Banner', 'Natasha Romanov', 'Jarvis'],
+        "team_b": ['Steve Rogers', 'Nick Fury', 'Phil Coulson', 'Carol Danvers', 'Loki']
+    }
+
+    return render(request, 'team_rosters.html', teams)
