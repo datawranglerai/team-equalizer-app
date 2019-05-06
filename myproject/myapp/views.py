@@ -8,6 +8,8 @@ from django.contrib import messages
 from .forms import VotingForm, RegistrationForm, RosterForm
 from .models import Votes
 
+from .teamBalancer import *
+
 
 class SignUp(generic.CreateView):
     form_class = RegistrationForm
@@ -75,17 +77,20 @@ def roster(request):
             post = form.save(commit=False)
             post.user = request.user
             post.published_date = timezone.now()
+            players = request.POST.getlist('players')  # sets player selection as a session variable
+            request.session['players'] = players
             post.save()
-            messages.success(request, 'Form submission successful')
+            return redirect('team_rosters')
     else:
         form = RosterForm()
     return render(request, 'roster_selection.html', {'form': form})
 
 
 def team_rosters(request):
-    teams = {
-        "team_a": ['Clint Barton', 'Tony Stark', 'Bruce Banner', 'Natasha Romanov', 'Jarvis'],
-        "team_b": ['Steve Rogers', 'Nick Fury', 'Phil Coulson', 'Carol Danvers', 'Loki']
-    }
+
+    players = request.session.get('players')
+    print(players)
+
+    teams = balance_teams(players, team_size=None)
 
     return render(request, 'team_rosters.html', teams)
