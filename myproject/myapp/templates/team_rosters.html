@@ -8,17 +8,20 @@
 
 <h1>Your balanced teams:</h1>
 
-<table>
-    <tr>
-        <th>Team A</th>
-        <th>Team B</th>
-    </tr>
-    {% for a, b in team_a|zip:team_b %}
-    <tr>
-        <td>{{ a }}</td>
-        <td>{{ b }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="equalizer_results">
+    <table class="teams">
+        <tr>
+            <th>Team A</th>
+            <th>Team B</th>
+        </tr>
+        {% for a, b in team_a|zip:team_b %}
+        <tr>
+            <td>{{ a }}</td>
+            <td>{{ b }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
 
 {% endblock %}

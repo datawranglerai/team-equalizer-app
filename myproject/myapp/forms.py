@@ -73,7 +73,7 @@ class RosterForm(forms.ModelForm):
 
     class Meta:
         model = Roster
-        fields = ('players', 'published_date',)
+        fields = ('players',)
 
     def __init__(self, *args, **kwargs):
         """

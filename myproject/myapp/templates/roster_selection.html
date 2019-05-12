@@ -5,10 +5,10 @@
 {% block content %}
 
 <h2>Select active players</h2>
-    <form method="POST" class="post-form", enctype='multipart/form-data'>
+    <form method="POST" class="post-form players", enctype='multipart/form-data'>
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
+        <button type="submit" class="save btn btn-default">Balance</button>
     </form>
 
     {% if messages %}

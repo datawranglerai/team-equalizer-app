@@ -5,10 +5,10 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
+<p>Hi {{ user.username }}!</p>
 {% else %}
-  <p>You are not logged in. Please login to your account or sign up to create one using the links below.</p>
-  <a href="{% url 'login' %}">login</a>
-  <a href="{% url 'signup' %}">sign up</a>
+<p>You are not logged in. Please login to your account or sign up to create one using the links below.</p>
+<a href="{% url 'login' %}">login</a>
+<a href="{% url 'signup' %}">sign up</a>
 {% endif %}
 {% endblock %}
