@@ -14,17 +14,20 @@
   <main>
     {% if user.is_authenticated %}
     <div class="nav-bar">
-      <a href="{% url 'vote_new' %}" class="top-menu">
-        <span class="glyphicon glyphicon-plus">Cast new vote</span>
+      <a href="{% url 'home' %}" class="top-menu">
+        <span class="glyphicon glyphicon-home">Home</span>
       </a>
-      <a href="{% url 'logout' %}" class="top-menu">
-        <span class="glyphicon glyphicon-off">logout</span>
+      <a href="{% url 'vote_new' %}" class="top-menu">
+        <span class="glyphicon glyphicon-plus">Vote</span>
       </a>
       <a href="{% url 'vote_list' %}" class="top-menu">
-        <span class="glyphicon glyphicon-th-list">View your votes</span>
+        <span class="glyphicon glyphicon-th-list">Review</span>
       </a>
       <a href="{% url 'roster_selection' %}", class="top-menu">
-        <span class="glyphicon glyphicon-stats">Roster selection</span>
+        <span class="glyphicon glyphicon-stats">Balance</span>
+      </a>
+      <a href="{% url 'logout' %}" class="top-menu">
+        <span class="glyphicon glyphicon-off">Logout</span>
       </a>
     </div>
     {% endif %}

@@ -9,11 +9,11 @@ class Votes(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     player = models.CharField(max_length=200)
-    skill_a = models.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
-    skill_b = models.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
-    skill_c = models.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
-    skill_d = models.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
-    skill_e = models.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    attack = models.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    defense = models.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    possession = models.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    stamina = models.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    mobility = models.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 

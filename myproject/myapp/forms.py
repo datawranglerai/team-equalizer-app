@@ -20,12 +20,11 @@ class VotingForm(forms.ModelForm):
     class Meta:
         model = Votes
         fields = ('player',
-                  'skill_a',
-                  'skill_b',
-                  'skill_c',
-                  'skill_d',
-                  'skill_e',
-                  'created_date',)
+                  'attack',
+                  'defense',
+                  'possession',
+                  'stamina',
+                  'mobility',)
 
     def __init__(self, *args, **kwargs):
         """
@@ -45,7 +44,7 @@ class VotingForm(forms.ModelForm):
 
         if instance and instance.player:
             self.fields['player'].disabled = True
-            self.fields['created_date'].disabled = True
+            # self.fields['created_date'].disabled = True
         else:
             # Get list of names of all users, excluding currently logged in user
             users = User.objects.values().exclude(id=uid)

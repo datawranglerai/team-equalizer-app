@@ -13,13 +13,13 @@ from .models import Votes
 
 logging.getLogger().setLevel(logging.INFO)  # default root logger to info level, instead of warning
 
-# Set importance of each skill here
+# Set skill names and importance of each skill here
 WEIGHTS = dict({
-    "SKILL_A": 1,
-    "SKILL_B": 2,
-    "SKILL_C": 1,
-    "SKILL_D": 5,
-    "SKILL_E": 5
+    "attack": 2,
+    "defense": 2,
+    "possession": 2,
+    "stamina": 1,
+    "mobility": 1
 })
 
 
@@ -31,15 +31,17 @@ class Player:
         :param name: The player's name, str.
         """
         self.name = name
+        self.skill_names = list(WEIGHTS.keys())
 
     def get_name(self):
         return self.name
 
     def get_votes(self):
+        attributes = ['player'] + self.skill_names
         player_votes = Votes.objects.filter(player=self.name).values_list(
-            'player', 'skill_a', 'skill_b', 'skill_c', 'skill_d', 'skill_e'
+            *attributes
         )
-        return pd.DataFrame(player_votes, columns=["PLAYER", "SKILL_A", "SKILL_B", "SKILL_C", "SKILL_D", "SKILL_E"])
+        return pd.DataFrame(player_votes, columns=attributes)
 
     def get_skill_scores(self, skills="all"):
         """
@@ -51,9 +53,9 @@ class Player:
 
         if votes.empty:
             # logging.warning(f"{self.name} has no votes. Defaulting to skill scores of 5.")
-            return pd.Series([5, 5, 5, 5, 5], index=['SKILL_A', 'SKILL_B', 'SKILL_C', 'SKILL_D', 'SKILL_E'])
+            return pd.Series([5, 5, 5, 5, 5], index=self.skill_names)
         elif skills == "all":
-            return votes[votes.columns[~votes.columns.isin(["NAME", "PLAYER"])]].apply(np.mean)
+            return votes[votes.columns[~votes.columns.isin(["name", "player"])]].apply(np.mean)
         else:
             return votes[skills].apply(np.mean)
 
@@ -200,8 +202,8 @@ def balance_teams(players, team_size=5, threshold=0.5, max_cycles=20, **kwargs):
 
     teams = []
     for combo in team_combos:
-        players = [p for p in player_objects if p.get_name() in combo]
-        team = Team(name="", players=players)
+        team_players = [p for p in player_objects if p.get_name() in combo]
+        team = Team(name="", players=team_players)
         teams.append(team)
 
     def find_matches(teams):
@@ -211,7 +213,7 @@ def balance_teams(players, team_size=5, threshold=0.5, max_cycles=20, **kwargs):
         """
 
         # Choose a random starting team lineup
-        i = randint(0, len(teams))
+        i = randint(0, len(teams) - 1)
         team_a, team_a_score = teams[i], teams[i].get_team_score()
 
         matched_teams = []
@@ -226,11 +228,11 @@ def balance_teams(players, team_size=5, threshold=0.5, max_cycles=20, **kwargs):
                     if abs(team_a.team_difference(team)) <= threshold:
                         matched_teams.append(team)
 
-        logging.info(f"{len(matched_teams)} matches found!")
+        logging.info(f"{len(matched_teams)} matches found")
 
         # Base cases
         if len(matched_teams) == 0:  # no matches found
-            if len(teams) - 1 == 2:  # all possible teams have been analysed
+            if len(teams) == 1:  # all possible teams have been analysed
                 try:
                     attempts += 1
                 except NameError:
@@ -245,13 +247,25 @@ def balance_teams(players, team_size=5, threshold=0.5, max_cycles=20, **kwargs):
                 logging.info("No matches found this time, moving down the list.")
                 del teams[i]
                 return find_matches(teams)
-        else:  # return the two matched teams
-            return dict({
+        else:
+            # Get the two matched teams
+            result = dict({
                 "team_a": team_a,
                 "team_b": choice(matched_teams)
             })
 
-    # TODO Recursively increase threshold until a match is returned
+            # Print team information
+            for k, v in result.items():
+                print(f"{k} score: {v.get_team_score()}")
+                print(f"{k} players: {v.get_players()}")
+
+            # Don't send individual players' scores to the front end
+            result_restricted = {
+                'team_a': result['team_a'].get_players(),
+                'team_b': result['team_b'].get_players()
+            }
+
+            return result_restricted
 
     return find_matches(teams=teams)
 
@@ -264,12 +278,16 @@ def main(players, team_size=5, threshold=0.5):
     for k, v in results.items():
         print(v)
 
-    results
+    # Return players only
+    {
+        'team_a': results['team_a'].get_players(),
+        'team_b': results['team_b'].get_players()
+    }
 
 
 # if __name__ == "__main__":
 #
-#     players = ['Nik Fury', 'Peter Parker', 'Clint Barton', 'Steve Rogers', 'Tony Stark',
-#                'Natasha Romanov', 'Phil Coulson', 'Bruce Banner', 'Thor Odinson', 'Wanda Maximoff']
+    # players = ['Nik Fury', 'Peter Parker', 'Clint Barton', 'Steve Rogers', 'Tony Stark',
+    #            'Natasha Romanov', 'Phil Coulson', 'Bruce Banner', 'Thor Odinson', 'Wanda Maximoff']
 #
 #     main()

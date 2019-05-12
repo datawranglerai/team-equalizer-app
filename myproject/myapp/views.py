@@ -59,6 +59,7 @@ def vote_edit(request, pk):
             post = form.save(commit=False)
             post.user = request.user
             post.published_date = timezone.now()
+            post.created_date = post.created_date
             post.save()
             return redirect('vote_detail', pk=post.pk)
     else:
@@ -91,6 +92,6 @@ def team_rosters(request):
     players = request.session.get('players')
     print(players)
 
-    teams = balance_teams(players, team_size=None)
+    teams = balance_teams(players, team_size=None, threshold=0.5, max_cycles=5)
 
     return render(request, 'team_rosters.html', teams)

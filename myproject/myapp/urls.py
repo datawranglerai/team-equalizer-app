@@ -1,7 +1,10 @@
 from django.urls import path
+from django.views.generic.base import TemplateView
+
 from . import views
 
 urlpatterns = [
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('vote/list', views.vote_list, name='vote_list'),
     path('vote/new/', views.vote_new, name='vote_new'),
     path('vote/<int:pk>/', views.vote_detail, name='vote_detail'),
