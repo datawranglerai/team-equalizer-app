@@ -1,0 +1,227 @@
+main {
+    text-align: center;
+}
+
+h1 a, h2 a {
+    color: #C25100;
+}
+
+h1 {
+    color: darkorange;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+h2, .h2 {
+    font-size: 30px;
+    color: orange;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    background-color: darkblue;
+}
+
+h3 {
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+h3 > a {
+    color: darkblue;
+}
+
+.welcome_message p {
+    text-align: center;
+    font-size: 30px;
+}
+
+div.post h2 a {
+    color: darkblue;
+    text-transform: uppercase;
+    font-size: 21px;
+}
+
+.date.last_updated {
+    text-transform: uppercase;
+    font-size: 9px;
+}
+
+.nav-bar-label {
+    display: inline-block;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+div.nav-bar {
+    text-align: center;
+    font-size: 20px;
+    background-color: orange;
+    height: 65px;
+}
+
+div.nav-bar span {
+    padding-right: 20px;
+    color: darkblue;
+    text-transform: uppercase;
+    font-size: 25px;
+    vertical-align: middle;
+    height: 100%;
+}
+
+div.nav-bar span:hover {
+    font-weight: 800;
+}
+
+div.main-block {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.top-menu span {
+    line-height: 55px;
+}
+
+.glyphicon::before {
+    padding-right: 5px;
+}
+
+table, th, tr, td {
+    border: 1px solid lightgray;
+    padding: 0px 10px 0px 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.post {
+    display: inline-block;
+    padding-right: 50px;
+}
+
+.post-form {
+    padding-top: 20px;
+}
+
+form label {
+    width: 90px;
+    text-transform: uppercase;
+    text-align: right;
+    margin-right: 5px;
+    font-size: 10px;
+}
+
+form.post-form.players label {
+    width: 100%;
+    font-weight: normal;
+    font-size: 12px;
+    display: block;
+    text-align: left;
+}
+
+form.post-form.players ul {
+    padding-left: 0px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1);
+    vertical-align: top;
+    margin-right: 5px;
+}
+
+form.post-form.players li {
+    list-style: none;
+}
+
+form.post-form.players > p > label {
+    display: none;
+}
+
+.heading_banner {
+    text-align: center;
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+div.player_selection {
+    display: block;
+    text-align: center;
+}
+
+form.players {
+    display: inline-block;
+    background-color: orange;
+    color: darkblue;
+    width: 20%;
+    text-align: left;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+}
+
+div.equalizer_results table {
+    text-align: center;
+    display: inline-block;
+    color: darkblue;
+    border: 0px solid gray;
+}
+
+div.equalizer_results td,
+div.equalizer_results th,
+div.equalizer_results tr {
+    padding: 10px 10px 10px 10px;
+    border: 0px solid gray;
+    background-color: orange;
+    color: darkblue;
+    width: 200px;
+}
+
+div.equalizer_results tr th:nth-child(2),
+div.equalizer_results tr td:nth-child(2) {
+    background-color: darkblue;
+    color: orange;
+    width: 200px;
+}
+
+table.teams th {
+    text-transform: uppercase;
+}
+
+.entry_points {
+    display: inline;
+}
+
+.login_link, .signup_link {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 20px;
+    padding: 10px 10px 10px 10px;
+    width: 200px;
+}
+
+.login_link {
+    background-color: darkblue;
+}
+
+.signup_link {
+    background-color: orange;
+}
+
+.login_link > a {
+    color: orange;
+}
+
+.signup_link > a {
+    color: darkblue;
+}
+
+.vote-summary table,
+.vote-summary th,
+.vote-summary tr,
+.vote-summary td {
+    padding: 10px 10px 10px 10px;
+    width: 300px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 10px;
+}

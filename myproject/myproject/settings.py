@@ -25,7 +25,10 @@ SECRET_KEY = 'cg=3-1qp^0#owmktal--s$=dz7w-$5q4sn2uz%o$#qsp_mgv7d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'team-equalizer-237518.appspot.com'
+]
 
 
 # Application definition
@@ -78,13 +81,24 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'equalizer_app_db',
-        'USER': 'data_wrangler_1',
-        'PASSWORD': 'l!`Ix,?78tpw4Pw',
-        'HOST': '35.195.117.121',
+        'NAME': 'equalizer',
+        'USER': 'datawrangler',
+        'PASSWORD': 'ciiu7CEcMc5h2kf',
+        'HOST': 'aws-ufo-db-1.ck1fqhicswgj.us-east-2.rds.amazonaws.com',
         'PORT': '3306'
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'equalizer_app_db',
+#         'USER': 'data_wrangler_1',
+#         'PASSWORD': 'l!`Ix,?78tpw4Pw',
+#         'HOST': '35.195.117.121',
+#         'PORT': '3306'
+#     }
+# }
 
 
 # Password validation
@@ -125,7 +139,7 @@ USE_TZ = True
 
 STATIC_URL = '/myapp/static/'
 
-STATIC_ROOT = '/static/'
+STATIC_ROOT = 'static'
 
 # Specify where to redirect the user upon a successful login
 LOGIN_REDIRECT_URL = 'home'

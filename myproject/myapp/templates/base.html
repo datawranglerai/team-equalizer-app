@@ -15,19 +15,19 @@
     {% if user.is_authenticated %}
     <div class="nav-bar">
       <a href="{% url 'home' %}" class="top-menu">
-        <span class="glyphicon glyphicon-home">Home</span>
+        <span class="glyphicon glyphicon-home"><div class="nav-bar-label">Home</div></span>
       </a>
       <a href="{% url 'vote_new' %}" class="top-menu">
-        <span class="glyphicon glyphicon-plus">Vote</span>
+        <span class="glyphicon glyphicon-plus"><div class="nav-bar-label">Vote</div></span>
       </a>
       <a href="{% url 'vote_list' %}" class="top-menu">
-        <span class="glyphicon glyphicon-th-list">Review</span>
+        <span class="glyphicon glyphicon-th-list"><div class="nav-bar-label">Review</div></span>
       </a>
       <a href="{% url 'roster_selection' %}", class="top-menu">
-        <span class="glyphicon glyphicon-stats">Balance</span>
+        <span class="glyphicon glyphicon-stats"><div class="nav-bar-label">Balance</div></span>
       </a>
       <a href="{% url 'logout' %}" class="top-menu">
-        <span class="glyphicon glyphicon-off">Logout</span>
+        <span class="glyphicon glyphicon-off"><div class="nav-bar-label">Logout</div></span>
       </a>
     </div>
     {% endif %}
