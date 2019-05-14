@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.urls import reverse_lazy
 from django.views import generic
 from django.http import HttpResponseForbidden
+from django.contrib.auth.models import User
 from django.contrib import messages
 
 from .forms import VotingForm, RegistrationForm, RosterForm
@@ -24,7 +25,12 @@ def vote_list(request):
     :return:
     """
     posts = Votes.objects.filter(user=request.user).order_by('published_date')
-    return render(request, 'vote_list.html', {'posts': posts})
+    user_count = User.objects.values().exclude(id=request.user.id).count()
+    progress = {
+        'user_count': User.objects.values().exclude(id=request.user.id).count(),
+        'post_count': Votes.objects.filter(user=request.user).count()
+    }
+    return render(request, 'vote_list.html', {'posts': posts, 'progress': progress})
 
 
 def vote_new(request):

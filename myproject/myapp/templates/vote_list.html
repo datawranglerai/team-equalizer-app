@@ -6,6 +6,14 @@
 
 {% block content %}
 
+<div class="vote_status">
+    {% if progress.post_count < progress.user_count %}
+    <p class="incomplete">You've voted on {{ progress.post_count }} of {{ progress.user_count }} registered players. Keep going!</p>
+    {% else %}
+    <p class="complete">Nice! You've finished voting.</p>
+    {% endif %}
+</div>
+
 <div class="vote_list">
 {% for post in posts %}
     <div class="post">
