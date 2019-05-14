@@ -81,7 +81,8 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'equalizer',
+        # 'NAME': 'equalizer',  # test database
+        'NAME': 'team-equalizer',
         'USER': 'datawrangler',
         'PASSWORD': 'ciiu7CEcMc5h2kf',
         'HOST': 'aws-ufo-db-1.ck1fqhicswgj.us-east-2.rds.amazonaws.com',
