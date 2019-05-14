@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'equalizer',
-        'USER': 'datawrangler',
-        'PASSWORD': 'ciiu7CEcMc5h2kf',
-        'HOST': 'aws-ufo-db-1.ck1fqhicswgj.us-east-2.rds.amazonaws.com',
+        'NAME': 'equalizer_app_db',
+        'USER': 'data_wrangler_1',
+        'PASSWORD': 'l!`Ix,?78tpw4Pw',
+        'HOST': '35.195.117.121',
         'PORT': '3306'
     }
 }
@@ -124,6 +124,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/myapp/static/'
+
+STATIC_ROOT = '/static/'
 
 # Specify where to redirect the user upon a successful login
 LOGIN_REDIRECT_URL = 'home'
