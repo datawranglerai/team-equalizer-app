@@ -28,7 +28,7 @@ class Votes(models.Model):
 class Roster(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     published_date = models.DateTimeField(blank=True, null=True)
-    players = models.CharField(max_length=200)
+    players = models.CharField(max_length=1000)
 
     def publish(self):
         self.published_date = timezone.now()

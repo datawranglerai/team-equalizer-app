@@ -1,47 +1,50 @@
 {% extends 'base.html' %}
 
+{% block heading %}
+Vote Summary for {{ post.player }}
+{% endblock %}
+
 {% block content %}
-    <div class="post">
-        {% if post.published_date %}
-            <div class="vote-summary">
-                <table>
-                    <tr>
-                        <th>Question</th>
-                        <th>Answer</th>
-                    </tr>
-                    <tr>
-                        <td>Last Updated</td>
-                        <td>{{ post.published_date }}</td>
-                    </tr>
-                    <tr>
-                        <td>Skill A</td>
-                        <td>{{ post.skill_a }}</td>
-                    </tr>
-                    <tr>
-                        <td>Skill B</td>
-                        <td>{{ post.skill_b }}</td>
-                    </tr>
-                    <tr>
-                        <td>Skill C</td>
-                        <td>{{ post.skill_c }}</td>
-                    </tr>
-                    <tr>
-                        <td>Skill D</td>
-                        <td>{{ post.skill_d }}</td>
-                    </tr>
-                    <tr>
-                        <td>Skill E</td>
-                        <td>{{ post.skill_e }}</td>
-                    </tr>
-                </table>
-            </div>
-        {% endif %}
-        {% if user.is_authenticated %}
-            <a class="btn btn-default" href="{% url 'vote_edit' pk=post.pk %}">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </a>
-        {% endif %}
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.text|linebreaksbr }}</p>
+<div class="post">
+    {% if post.published_date %}
+    <div class="date last_updated">
+        Last updated:
+        {{ post.published_date }}
     </div>
+    <div class="vote-summary">
+        <table>
+            <tr>
+                <th>Skill</th>
+                <th>Rating</th>
+            </tr>
+            <tr>
+                <td>Attack</td>
+                <td>{{ post.attack }}</td>
+            </tr>
+            <tr>
+                <td>Defense</td>
+                <td>{{ post.defense }}</td>
+            </tr>
+            <tr>
+                <td>Possession</td>
+                <td>{{ post.possession }}</td>
+            </tr>
+            <tr>
+                <td>Stamina</td>
+                <td>{{ post.stamina }}</td>
+            </tr>
+            <tr>
+                <td>Mobility</td>
+                <td>{{ post.mobility }}</td>
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <p>{{ post.text|linebreaksbr }}</p>
+    <a class="btn btn-default" href="{% url 'vote_edit' pk=post.pk %}">
+        <span class="glyphicon glyphicon-pencil"></span>
+    </a>
+    {% endif %}
+</div>
 {% endblock %}

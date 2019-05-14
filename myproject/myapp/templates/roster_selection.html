@@ -2,9 +2,11 @@
 
 {% block title %}Equalizer | Player Selection{% endblock %}
 
+{% block heading %}Player Selection{% endblock %}
+
 {% block content %}
 
-<h2>Select active players</h2>
+<div class="player_selection">
     <form method="POST" class="post-form players", enctype='multipart/form-data'>
         {% csrf_token %}
         {{ form.as_p }}
@@ -17,6 +19,7 @@
         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
     </ul>
-{% endif %}
+    {% endif %}
+</div>
 
 {% endblock %}

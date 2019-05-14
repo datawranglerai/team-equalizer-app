@@ -2,8 +2,9 @@
 
 {% block title %}Equalizer | Edit Vote{% endblock %}
 
+{% block heading %}Edit Vote{% endblock %}
+
 {% block content %}
-    <h2>Edit Vote</h2>
     <form method="POST" class="post-form">
         {% csrf_token %}
         {{ form.as_p }}

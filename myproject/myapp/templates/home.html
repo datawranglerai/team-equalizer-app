@@ -3,12 +3,29 @@
 
 {% block title %}Equalizer | Home{% endblock %}
 
+{% block heading %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+{% else %}
+  Welcome
+{% endif %}
+{% endblock %}
+
 {% block content %}
 {% if user.is_authenticated %}
-<p>Hi {{ user.username }}!</p>
+<div class="welcome_message">
+</div>
+<div class="introductory_text">
+  <p>Welcome to the Equalizer app.</p>
+  <p>Gone are the days of one-sided football matches.</p>
+  <p>Rate other players on five key skills and use the balancing algorithm to generate two evenly matched teams.</p>
+  <p>Remember, attack, defense and possession are worth twice as much as stamina and mobility.</p>
+</div>
 {% else %}
 <p>You are not logged in. Please login to your account or sign up to create one using the links below.</p>
-<a href="{% url 'login' %}">login</a>
-<a href="{% url 'signup' %}">sign up</a>
+<div class="entry_points">
+  <div class="login_link"><a href="{% url 'login' %}">login</a></div>
+  <div class="signup_link"><a href="{% url 'signup' %}">sign up</a></div>
+</div>
 {% endif %}
 {% endblock %}
