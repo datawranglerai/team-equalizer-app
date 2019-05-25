@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# PyCharm stuff
+.idea/*
+
 # Distribution / packaging
 .Python
 build/
@@ -106,5 +109,3 @@ venv.bak/
 # Django migrations
 myapp/migrations/
 
-# PyCharm stuff
-.idea/*
