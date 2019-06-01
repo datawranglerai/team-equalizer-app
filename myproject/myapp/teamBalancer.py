@@ -1,6 +1,8 @@
 # balanceTeams.py
 # Creates two random teams from a list players, balanced according to how they're each rated against particular skills
 
+from .models import Votes
+
 import pandas as pd
 import numpy as np
 from itertools import combinations
@@ -9,7 +11,9 @@ import math
 from random import choice, randint
 import operator
 
-from .models import Votes
+from cachetools import cached, TTLCache
+cache = TTLCache(maxsize=100, ttl=300)
+
 
 logging.getLogger().setLevel(logging.INFO)  # default root logger to info level, instead of warning
 
@@ -36,6 +40,7 @@ class Player:
     def get_name(self):
         return self.name
 
+    @cached(cache)
     def get_votes(self):
         attributes = ['player'] + self.skill_names
         player_votes = Votes.objects.filter(player=self.name).values_list(
@@ -43,27 +48,36 @@ class Player:
         )
         return pd.DataFrame(player_votes, columns=attributes)
 
+    @cached(cache)
     def get_skill_scores(self, skills="all"):
         """
-        Calculate score per skill.
-        :param skills: Which skills to calculate, array.
+        Calculate score per skill
+        :param skills: Skills to calculate average scores for (not yet implemented)
+        :type skills: list
         :return: Average scores for each skill
+        :rtype: pandas.core.series.Series
         """
         votes = self.get_votes()
 
         if votes.empty:
-            # logging.warning(f"{self.name} has no votes. Defaulting to skill scores of 5.")
+            logging.warning(f"{self.name} has no votes. Defaulting to skill scores of 5.")
             return pd.Series([5, 5, 5, 5, 5], index=self.skill_names)
         elif skills == "all":
             return votes[votes.columns[~votes.columns.isin(["name", "player"])]].apply(np.mean)
         else:
+            # TODO implement caching system for list-type arguments, since this expression breaks currently
             return votes[skills].apply(np.mean)
 
+    @cached(cache)
     def get_overall_score(self, skills="all", weights=WEIGHTS):
         """
-        Calculate overall skill level of the player.
-        :param weights: Dictionary of skill weights.
-        :return:
+        Calculate overall skill level of the player
+        :param weights: Relative importance of each skill
+        :type weights: dict
+        :param skills: Which skills to include in calculation of overall score, default is 'all'
+        :type skills: str or list
+        :return: Player's overall score
+        :rtype: float
         """
 
         scores = self.get_skill_scores(skills)
@@ -74,6 +88,7 @@ class Player:
             skill_weights = [weights[skill] for skill in scores.keys()]
             return np.average(scores, weights=skill_weights)
 
+    @cached(cache)
     def __str__(self):
         player_score = self.get_overall_score()
         return f"Name: {self.name}, Score: {player_score}"
