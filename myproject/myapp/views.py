@@ -98,6 +98,6 @@ def team_rosters(request):
     players = request.session.get('players')
     print(players)
 
-    teams = balance_teams(players, team_size=None, threshold=0.5, max_cycles=5)
+    teams = balance_teams(players, team_size=None, threshold=1, max_cycles=5)
 
     return render(request, 'team_rosters.html', teams)
