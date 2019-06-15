@@ -12,6 +12,10 @@ from random import choice, randint
 import operator
 
 from cachetools import cached, TTLCache
+from cachetools.keys import hashkey
+from functools import partial
+
+
 cache = TTLCache(maxsize=100, ttl=300)
 
 
@@ -40,7 +44,7 @@ class Player:
     def get_name(self):
         return self.name
 
-    @cached(cache)
+    @cached(cache=cache, key=partial(hashkey, 'get_votes'))
     def get_votes(self):
         attributes = ['player'] + self.skill_names
         player_votes = Votes.objects.filter(player=self.name).values_list(
@@ -48,7 +52,7 @@ class Player:
         )
         return pd.DataFrame(player_votes, columns=attributes)
 
-    @cached(cache)
+    @cached(cache=cache, key=partial(hashkey, 'get_skill_scores'))
     def get_skill_scores(self, skills="all"):
         """
         Calculate score per skill
@@ -68,7 +72,7 @@ class Player:
             # TODO implement caching system for list-type arguments, since this expression breaks currently
             return votes[skills].apply(np.mean)
 
-    @cached(cache)
+    @cached(cache=cache, key=partial(hashkey, 'get_overall_score'))
     def get_overall_score(self, skills="all", weights=WEIGHTS):
         """
         Calculate overall skill level of the player
@@ -88,7 +92,7 @@ class Player:
             skill_weights = [weights[skill] for skill in scores.keys()]
             return np.average(scores, weights=skill_weights)
 
-    @cached(cache)
+    @cached(cache=cache, key=partial(hashkey, '__str__'))
     def __str__(self):
         player_score = self.get_overall_score()
         return f"Name: {self.name}, Score: {player_score}"
@@ -294,15 +298,17 @@ def main(players, team_size=5, threshold=0.5):
         print(v)
 
     # Return players only
-    {
+    team_config = {
         'team_a': results['team_a'].get_players(),
         'team_b': results['team_b'].get_players()
     }
 
+    return team_config
 
-# if __name__ == "__main__":
-#
+
+if __name__ == "__main__":
+
     # players = ['Nik Fury', 'Peter Parker', 'Clint Barton', 'Steve Rogers', 'Tony Stark',
     #            'Natasha Romanov', 'Phil Coulson', 'Bruce Banner', 'Thor Odinson', 'Wanda Maximoff']
-#
-#     main()
+
+    main()
