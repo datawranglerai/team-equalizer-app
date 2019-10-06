@@ -1,6 +1,7 @@
 # [START django_app]
 runtime: python37
 instance_class: F2
+service: default
 
 handlers:
 # This configures Google App Engine to serve the files in the app's static
