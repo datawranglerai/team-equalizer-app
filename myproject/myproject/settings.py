@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -79,28 +78,35 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'equalizer',  # test database
-        'NAME': 'team-equalizer',
-        'USER': 'datawrangler',
-        'PASSWORD': 'ciiu7CEcMc5h2kf',
-        'HOST': 'aws-ufo-db-1.ck1fqhicswgj.us-east-2.rds.amazonaws.com',
-        'PORT': '3306'
+if os.getenv('GAE_APPLICATION', None):
+    # Running on production App Engine, so connect to Google Cloud SQL using
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/teamequalizer:europe-west2:team-balancer-site',
+            'USER': 'datawrangler',
+            'PASSWORD': '7.+nwVWH!p%^38&:',
+            'NAME': 'team_equalizer',
+        }
     }
-}
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'equalizer_app_db',
-#         'USER': 'data_wrangler_1',
-#         'PASSWORD': 'l!`Ix,?78tpw4Pw',
-#         'HOST': '35.195.117.121',
-#         'PORT': '3306'
-#     }
-# }
+else:
+    # Running locally so connect to either a local MySQL instance or connect to
+    # Cloud SQL via the proxy. To start the proxy via command line:
+    #
+    #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
+    #
+    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '35.242.150.198',  # 127.0.0.1 original
+            'PORT': '3306',
+            'NAME': 'team_equalizer',
+            'USER': 'datawrangler',
+            'PASSWORD': '7.+nwVWH!p%^38&:',
+        }
+    }
 
 
 # Password validation
