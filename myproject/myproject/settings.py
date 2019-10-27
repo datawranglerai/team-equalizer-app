@@ -77,6 +77,8 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+# Connecting to Google Cloud SQL: https://cloud.google.com/python/django/appengine
+# Copy database across: https://stackoverflow.com/questions/7002194/how-to-copy-database-in-use-to-other-database-in-django/7003567#7003567
 
 if os.getenv('GAE_APPLICATION', None):
     # Running on production App Engine, so connect to Google Cloud SQL using
