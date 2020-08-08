@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/django_thirdtry.iml" filepath="$PROJECT_DIR$/.idea/django_thirdtry.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/team-equalizer-app.iml" filepath="$PROJECT_DIR$/.idea/team-equalizer-app.iml" />
     </modules>
   </component>
 </project>

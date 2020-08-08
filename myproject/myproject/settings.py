@@ -27,7 +27,8 @@ DEBUG = False
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'team-equalizer-237518.appspot.com',
-    'teamequalizer.appspot.com'
+    'teamequalizer.appspot.com',
+    'team-equalizer-app.nw.r.appspot.com'
 ]
 
 
@@ -85,11 +86,11 @@ if os.getenv('GAE_APPLICATION', None):
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/teamequalizer:europe-west2:team-balancer-site',
-            'USER': 'datawrangler',
-            'PASSWORD': '7.+nwVWH!p%^38&:',
-            'NAME': 'team_equalizer',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'HOST': '/cloudsql/team-equalizer-app:europe-west2:team-equalizer-app-db',
+            'USER': 'data-wrangler-1',
+            'PASSWORD': 'pJdu33ymCd9fBFp0',
+            'NAME': 'team-equalizer-db',
         }
     }
 else:
@@ -101,12 +102,12 @@ else:
     # See https://cloud.google.com/sql/docs/mysql-connect-proxy
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '35.242.150.198',  # 127.0.0.1 original
-            'PORT': '3306',
-            'NAME': 'team_equalizer',
-            'USER': 'datawrangler',
-            'PASSWORD': '7.+nwVWH!p%^38&:',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'HOST': '34.105.173.200',
+            'PORT': '5432',
+            'USER': 'data-wrangler-1',
+            'PASSWORD': 'pJdu33ymCd9fBFp0',
+            'NAME': 'team-equalizer-db',
         }
     }
 
