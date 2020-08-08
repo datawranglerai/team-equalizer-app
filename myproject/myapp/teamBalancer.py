@@ -69,7 +69,6 @@ class Player:
         elif skills == "all":
             return votes[votes.columns[~votes.columns.isin(["name", "player"])]].apply(np.mean)
         else:
-            # TODO implement caching system for list-type arguments, since this expression breaks currently
             return votes[skills].apply(np.mean)
 
     @cached(cache=cache, key=partial(hashkey, 'get_overall_score'))

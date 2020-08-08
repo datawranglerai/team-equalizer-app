@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0b77df06-0920-44e4-90d0-182c4d7ac2ff" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/app.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/app.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myproject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myproject/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/cloud_sql_proxy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/teamBalancer.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/teamBalancer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
